@@ -3,6 +3,7 @@ Python client for Onename's API
 
 ##Documentation:
 pip install -r requirements.txt
+
 from lib.client import Client
 
 client = Client.new(ONENAME_APP_ID, ONENAME_APP_SECRET)
