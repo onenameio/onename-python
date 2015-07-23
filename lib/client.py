@@ -2,7 +2,7 @@
 """
     API Client
     ~~~~~
-    :copyright: (c) 2015 by Halfmoon Labs
+    :copyright: (c) 2015 by Halfmoon Labs, Inc.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -18,7 +18,8 @@ class Client:
 
         self.api_id = api_id
         self.api_secret = api_secret
-        self.base_url = "https://api.onename.com/v1"
+        #self.base_url = "https://api.onename.com/v1"
+        self.base_url = "http://localhost:5000/v1"
 
     def _get_request(self, url):
 
@@ -41,6 +42,12 @@ class Client:
 
         return self._get_request(url)
 
+    def get_all_users(self):
+
+        url = self.base_url + "/users"
+
+        return self._get_request(url)
+
     def get_search(self, query):
 
         url = self.base_url + "/search?query=" + query
@@ -49,7 +56,7 @@ class Client:
 
     def get_stats(self):
 
-        url = self.base_url + "/users"
+        url = self.base_url + "/users/stats"
 
         return self._get_request(url)
 
