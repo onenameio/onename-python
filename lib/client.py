@@ -18,8 +18,8 @@ class Client:
 
         self.api_id = api_id
         self.api_secret = api_secret
-        #self.base_url = "https://api.onename.com/v1"
-        self.base_url = "http://localhost:5000/v1"
+        self.base_url = "https://api.onename.com/v1"
+        #self.base_url = "http://localhost:5000/v1"
 
     def _get_request(self, url):
 
