@@ -12,4 +12,5 @@ if __name__ == '__main__':
     c = Client()
 
     print c.get_stats()
+    print c.get_user('muneeb')
     #print c.get_all_users()

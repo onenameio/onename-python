@@ -10,16 +10,18 @@ import json
 import requests
 
 from .config import ONENAME_API_ID, ONENAME_API_SECRET
+from .config import ONENAME_BASE_URL
 
 
 class Client:
 
-    def __init__(self, api_id=ONENAME_API_ID, api_secret=ONENAME_API_SECRET):
+    def __init__(self, api_id=ONENAME_API_ID,
+                 api_secret=ONENAME_API_SECRET,
+                 base_url=ONENAME_BASE_URL):
 
         self.api_id = api_id
         self.api_secret = api_secret
-        self.base_url = "https://api.onename.com/v1"
-        #self.base_url = "http://localhost:5000/v1"
+        self.base_url = base_url
 
     def _get_request(self, url):
 
@@ -30,8 +32,11 @@ class Client:
 
     def _post_request(self, url, payload):
 
-        response = requests.post(url, data=payload,
+        headers = {'content-type': 'application/json'}
+
+        response = requests.post(url, data=json.dumps(payload),
                                  auth=(self.api_id, self.api_secret),
+                                 headers=headers,
                                  verify=False)
 
         return json.loads(response.text)
@@ -66,7 +71,11 @@ class Client:
 
         return self._get_request(url)
 
-    def register_user(self, payload):
+    def register_user(self, username, address):
+
+        payload = {}
+        payload['passname'] = username
+        payload['recipient_address'] = address
 
         url = self.base_url + "/users"
 
