@@ -7,10 +7,11 @@
 
 from lib.client import Client
 
+ONENAME_API_ID = ''
+ONENAME_API_SECRET = ''
+
 if __name__ == '__main__':
 
-    c = Client()
+    c = Client(ONENAME_API_ID, ONENAME_API_SECRET)
 
-    print c.get_stats()
-    print c.get_user('muneeb')
-    #print c.get_all_users()
+    print c.get_user('albertwenger')

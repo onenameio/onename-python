@@ -9,15 +9,13 @@
 import json
 import requests
 
-from .config import ONENAME_API_ID, ONENAME_API_SECRET
-from .config import ONENAME_BASE_URL
+BASE_URL = "https://api.onename.com/v1"
 
 
 class Client:
 
-    def __init__(self, api_id=ONENAME_API_ID,
-                 api_secret=ONENAME_API_SECRET,
-                 base_url=ONENAME_BASE_URL):
+    def __init__(self, api_id, api_secret,
+                 base_url=BASE_URL):
 
         self.api_id = api_id
         self.api_secret = api_secret
