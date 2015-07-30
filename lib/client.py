@@ -8,6 +8,7 @@
 
 import json
 import requests
+requests.packages.urllib3.disable_warnings()
 
 BASE_URL = "https://api.onename.com/v1"
 
@@ -59,7 +60,7 @@ class Client:
 
     def get_stats(self):
 
-        url = self.base_url + "/users/stats"
+        url = self.base_url + "/stats/users"
 
         return self._get_request(url)
 
@@ -84,3 +85,9 @@ class Client:
         url = self.base_url + "/transactions"
 
         return self._post_request(url, payload)
+
+    def get_dkim(self, domain):
+
+        url = self.base_url + "/domains/" + domain + "/dkim"
+
+        return self._get_request(url)
