@@ -2,42 +2,58 @@
 
 Python client for Onename's API
 
-### Getting started
+### Installation
 
 ```
-pip install -r requirements.txt
+$ pip install onename
 ```
+
+### Setting up the API Client
 
 ```python
-from lib.client import Client
-
-client = Client(ONENAME_APP_ID, ONENAME_APP_SECRET)
+>>> from onename import OnenameClient
+>>> onename_client = OnenameClient(ONENAME_APP_ID, ONENAME_APP_SECRET)
 ```
 
 ### API Calls
 
 ```python
-user_profile = client.get_user('fredwilson')
+>>> user_profile = onename_client.get_users(['fredwilson', 'naval'])
 ```
 
 ```python
-registration_payload = {'passname' : 'fredwilson', 'recipient_address' : 'N6zdUCKq1gJaps76gagBbC5Vc6xBxMdvHc', 'passcard' : {'bio' : 'I am a VC'}}
-registration_status = client.register_user(registration_payload)
+>>> search_results = onename_client.search_users('wenger')
 ```
 
 ```python
-search_results = client.get_search('wenger')
+>>> registration_payload = {'passname': 'fredwilson', 'recipient_address': 'N6zdUCKq1gJaps76gagBbC5Vc6xBxMdvHc', 'passcard': {'bio': 'I am a VC'}}
+>>> onename_client.register_user(registration_payload)
+{"status": "success"}
 ```
 
 ```python
-user_stats = client.get_stats()
+>>> user_data = onename_client.get_all_users()
 ```
 
 ```python
-payload = {"signed_hex" : "00710000015e98119922f0b"}
-client.broadcast_transaction(payload)
+>>> onename_client.get_user_stats()
+{"stats": {"registrations": "31804"}}
 ```
 
 ```python
-address = client.get_address('N8PcBQnL4oMuM6aLsQow6iG59yks1AtQX4')
+>>> payload = {"signed_hex": "00710000015e98119922f0b"}
+>>> onename_client.broadcast_transaction(payload)
+{"status": "success"}
+```
+
+```python
+>>> unspents = onename_client.get_unspents('N8PcBQnL4oMuM6aLsQow6iG59yks1AtQX4')
+```
+
+```python
+>>> names = onename_client.get_names('N8PcBQnL4oMuM6aLsQow6iG59yks1AtQX4')
+```
+
+```python
+>>> dkim_info = onename_client.get_dkim_info('onename.com')
 ```

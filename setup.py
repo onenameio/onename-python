@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='onename',
-    version='0.1.0',
+    version='0.2.0',
     url='https://github.com/onenameio/onename-python',
     license='MIT',
     author='Halfmoon Labs, Inc.',
@@ -18,7 +18,8 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     install_requires=[
-        'requests>=2.7.0'
+        'requests>=2.7.0',
+        'pybitcoin>=0.9.1'
     ],
     classifiers=[
         'Intended Audience :: Developers',
