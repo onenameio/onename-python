@@ -14,6 +14,7 @@ requests.packages.urllib3.disable_warnings()
 
 BASE_URL = "https://api.onename.com/v1"
 
+
 class OnenameClient:
     def __init__(self, api_id, api_secret, base_url=BASE_URL):
         self.api_id = api_id
@@ -51,7 +52,7 @@ class OnenameClient:
             raise ValueError('"address" must be a valid cryptocurrency address')
         url = self.base_url + "/users"
         payload = {
-            'passname': username,
+            'username': username,
             'recipient_address': address
         }
         return self._post_request(url, payload)
@@ -86,3 +87,17 @@ class OnenameClient:
     def get_dkim_info(self, domain):
         url = self.base_url + "/domains/" + domain + "/dkim"
         return self._get_request(url)
+
+    def get_emails_token(self):
+        url = self.base_url + "/emails"
+        return self._get_request(url)
+
+    def submit_email(self, email):
+        url = self.base_url + "/emails"
+
+        payload = {}
+        data = self.get_emails_token()
+        payload['token'] = data['token']
+        payload['email'] = email
+
+        return self._post_request(url, payload)
