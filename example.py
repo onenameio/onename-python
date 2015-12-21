@@ -10,6 +10,8 @@ import requests
 import json
 from pybitcoin import BitcoinPrivateKey
 
+from registrar.wallet import HDWallet
+
 try:
     ONENAME_API_ID = os.environ['ONENAME_API_ID']
     ONENAME_API_SECRET = os.environ['ONENAME_API_SECRET']
@@ -18,19 +20,27 @@ except:
 
 from onename.client import OnenameClient
 
-HEX_PRIV_KEY = os.environ['HEX_PRIV_KEY']
-
-privkey = BitcoinPrivateKey(HEX_PRIV_KEY)
+try:
+    HEX_PRIV_KEY = os.environ['HEX_PRIV_KEY']
+    wallet = HDWallet(HEX_PRIV_KEY)
+except:
+    wallet = HDWallet()
 
 if __name__ == '__main__':
 
-    c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET, base_url='http://localhost:5000/v1')
+    username = "clone_4345"
+    profile = {"name": {"formatted": "Clone 4345"},
+               "v": "2"}
+    owner_address = wallet.get_keypairs(1)[0]
 
-    print c.get_user('albertwenger')
+    print owner_address
 
+    #c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET, base_url='http://localhost:5000/v1')
+    c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET)
+    
     #print c.get_user_stats()
-    print c.update_user('muneeb', {'name': 'muneeb'}, owner_privkey=privkey.to_hex())
-    #print c.register_user('clone_43453445353', '19bXfGsGEXewR6TyAV3b89cSHBtFFewXt6')
+    #print c.update_user('muneeb', {'name': 'muneeb'}, owner_privkey=privkey.to_hex())
+    print c.register_user(username, owner_address)
     #print c.get_user('muneeb')
     #print c.get_dkim('onename.com')
     #print c.get_all_users()
