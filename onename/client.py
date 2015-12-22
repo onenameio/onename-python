@@ -13,6 +13,9 @@ from pybitcoin import is_b58check_address
 from pybitcoin import sign_all_unsigned_inputs
 
 from registrar.crypto import get_pubkey_from_privkey
+from registrar.states import profileonDHT
+from registrar.network import write_dht_profile
+from registrar.config import DEFAULT_NAMESPACE
 
 requests.packages.urllib3.disable_warnings()
 
@@ -157,8 +160,14 @@ class OnenameClient:
         except:
             return resp
 
+        dht_resp = write_dht_profile(profile)
+        dht_resp = dht_resp[0]
+
+        if not dht_resp['status'] == 'success':
+            return {"error": "DHT write failed"}
+
         # sign all unsigned inputs
-        signed_tx = sign_all_unsigned_inputs(owner_privkey, unsigned_tx_hex)
+        signed_tx = sign_all_unsigned_inputs(owner_privkey, unsigned_tx)
 
         return self.broadcast_transaction(signed_tx)
 
@@ -184,6 +193,6 @@ class OnenameClient:
             return resp
 
         # sign all unsigned inputs
-        signed_tx = sign_all_unsigned_inputs(owner_privkey, unsigned_tx_hex)
+        signed_tx = sign_all_unsigned_inputs(owner_privkey, unsigned_tx)
 
         return self.broadcast_transaction(signed_tx)
