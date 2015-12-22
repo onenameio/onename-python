@@ -31,16 +31,16 @@ if __name__ == '__main__':
     username = "clone_4345"
     profile = {"name": {"formatted": "Clone 4345"},
                "v": "2"}
-    owner_address = wallet.get_keypairs(1)[0]
+    owner_address, owner_privkey = wallet.get_keypairs(1, include_privkey=True)[0]
 
-    print owner_address
 
-    #c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET, base_url='http://localhost:5000/v1')
-    c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET)
-    
+    c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET, base_url='http://localhost:5000/v1')
+    #c = OnenameClient(ONENAME_API_ID, ONENAME_API_SECRET)
+
     #print c.get_user_stats()
-    #print c.update_user('muneeb', {'name': 'muneeb'}, owner_privkey=privkey.to_hex())
-    print c.register_user(username, owner_address)
+    #print c.register_user(username, owner_address)
+    print c.update_user(username, profile, owner_privkey=owner_privkey)
+
     #print c.get_user('muneeb')
     #print c.get_dkim('onename.com')
     #print c.get_all_users()
